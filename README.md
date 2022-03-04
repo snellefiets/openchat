@@ -9,8 +9,25 @@
 ## API
 
 **Status**
-GET /status/
+*Request*
+* GET /status/
 *Response*
-200 > Application is up and running
-404 > Not running 
+Status:
+* 200 > Application is up and running
+* 404 > Not running 
+
+**User Registration**
+*Request*
+* POST /user/register
+Parameter:
+* username
+* password
+* about
+*Response*
+Status:
+* 201 > user successfully created
+* 400 > see message parameter (e.g. 'user already in use')
+Parameter:
+* id > created user id
+* message > in case status not 2xx
 
