@@ -2,6 +2,7 @@ package de.ite.openchat.api;
 
 import de.ite.openchat.domain.RegistrationData;
 import de.ite.openchat.domain.User;
+import de.ite.openchat.domain.UserAlreadyInUseException;
 import de.ite.openchat.domain.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,27 @@ public class UserApi {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
-        final User user = userService.createUser(toRegistrationData(request));
-        return ResponseEntity.status(HttpStatus.CREATED).body(toRegisterResponse(user));
+        final User user;
+        try {
+            user = userService.createUser(toRegistrationData(request));
+        } catch (UserAlreadyInUseException e) {
+            return toUserAlreadyInUseResponse();
+        }
+        return toUserRegisteredResponse(user);
     }
 
-    private RegisterResponse toRegisterResponse(User user) {
-        return RegisterResponse.builder().userId(user.getId()).message("").build();
+    private ResponseEntity<RegisterResponse> toUserAlreadyInUseResponse() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RegisterResponse.builder()
+                .userId("")
+                .message("user already in use")
+                .build());
+    }
+
+    private ResponseEntity<RegisterResponse> toUserRegisteredResponse(User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(RegisterResponse.builder()
+                .userId(user.getId())
+                .message("")
+                .build());
     }
 
     private RegistrationData toRegistrationData(RegisterRequest request) {
