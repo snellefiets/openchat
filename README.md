@@ -9,8 +9,10 @@
 ## API
 
 **Status**
+
 *Request*
-* GET /status/
+* GET /status
+
 *Response*
 Status:
 * 200 > Application is up and running
@@ -19,10 +21,12 @@ Status:
 **User Registration**
 *Request*
 * POST /user/register
+
 Parameter:
 * username
 * password
 * about
+
 *Response*
 Status:
 * 201 > user successfully created

@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StatusApiIT {
+public class StatusApiITest {
 
     @Autowired
     private MockMvc mockMvc;
