@@ -1,7 +1,10 @@
 package de.ite.openchat.api;
 
 import de.ite.openchat.domain.RegistrationData;
+import de.ite.openchat.domain.User;
 import de.ite.openchat.domain.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +21,13 @@ public class UserApi {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterRequest request) {
-        userService.createUser(toRegistrationData(request));
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+        final User user = userService.createUser(toRegistrationData(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toRegisterResponse(user));
+    }
+
+    private RegisterResponse toRegisterResponse(User user) {
+        return RegisterResponse.builder().userId(user.getId()).message("").build();
     }
 
     private RegistrationData toRegistrationData(RegisterRequest request) {
