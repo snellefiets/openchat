@@ -1,6 +1,10 @@
 package de.ite.openchat.feature;
 
+import de.ite.openchat.api.RegisterRequest;
+import de.ite.openchat.api.RegisterResponse;
 import de.ite.openchat.helper.JsonUtil;
+import de.ite.openchat.repository.UserDbo;
+import de.ite.openchat.repository.UserRepository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,13 +54,18 @@ public class UserRegistrationITest {
 
         final UserDbo userDbo = userRepository.findById(userId);
 
-        assertThat(userDbo).isEqualTo(UserDbo.builder().id(userId).name(USER_NAME).password(USER_PASSWORD).about(USER_ABOUT).build());
+        assertThat(userDbo).isEqualTo(UserDbo.builder()
+                .id(userId)
+                .name(USER_NAME)
+                .password(USER_PASSWORD)
+                .about(USER_ABOUT)
+                .build());
 
     }
 
     private MockHttpServletResponse sendRequest(RegisterRequest request)
             throws Exception {
-        mockMvc.perform(
+        return mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/user/register")
                         .content(JsonUtil.toString(request))

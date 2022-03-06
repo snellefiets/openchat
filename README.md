@@ -32,6 +32,6 @@ Status:
 * 201 > user successfully created
 * 400 > see message parameter (e.g. 'user already in use')
 Parameter:
-* id > created user id
+* userId > created user id
 * message > in case status not 2xx
 
