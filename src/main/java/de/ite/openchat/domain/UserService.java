@@ -14,6 +14,8 @@ public class UserService {
     }
 
     public User createUser(RegistrationData registrationData) throws UserAlreadyInUseException {
+        if (userRepository.existsByName(registrationData.getUsername()))
+            throw new UserAlreadyInUseException();
         final String userId = userRepository.save(UserDbo.builder().name(registrationData.getUsername()).password(registrationData.getPassword()).about(registrationData.getAbout()).build());
         return User.builder().id(userId).name(registrationData.getUsername()).password(registrationData.getPassword()).about(registrationData.getAbout()).build();
     }
