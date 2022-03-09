@@ -8,4 +8,9 @@ public class UserRepositoryImpl implements UserRepository {
     public UserDbo findById(String userId) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String save(UserDbo user) {
+        throw new UnsupportedOperationException();
+    }
 }

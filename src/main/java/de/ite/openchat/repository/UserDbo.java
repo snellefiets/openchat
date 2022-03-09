@@ -2,6 +2,7 @@ package de.ite.openchat.repository;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @Builder
 @EqualsAndHashCode
