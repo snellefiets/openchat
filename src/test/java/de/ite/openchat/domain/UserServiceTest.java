@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -50,6 +51,16 @@ class UserServiceTest {
                 .password(USER_PASSWORD)
                 .about(USER_ABOUT)
                 .build());
+    }
+
+    @Test
+    void should_fail_dueTo_user_already_exists() {
+        doReturn(true).when(userRepository).existsByName(USER_NAME);
+
+        assertThatThrownBy(() -> sut.createUser(RegistrationData.builder()
+                .username(USER_NAME).password(USER_PASSWORD).about(USER_ABOUT).build()))
+                .isInstanceOf(UserAlreadyInUseException.class);
+        verify(userRepository).existsByName(USER_NAME);
     }
 
 }

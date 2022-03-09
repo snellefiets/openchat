@@ -4,4 +4,6 @@ public interface UserRepository {
     UserDbo findById(String userId);
 
     String save(UserDbo user);
+
+    boolean existsByName(String name);
 }

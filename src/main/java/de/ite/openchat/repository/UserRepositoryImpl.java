@@ -13,4 +13,9 @@ public class UserRepositoryImpl implements UserRepository {
     public String save(UserDbo user) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        throw new UnsupportedOperationException();
+    }
 }
