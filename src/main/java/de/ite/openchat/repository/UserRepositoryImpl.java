@@ -15,7 +15,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserDbo findById(String userId) {
-        throw new UnsupportedOperationException();
+        return userList.stream().findFirst().filter(u -> userId.equals(u.getId())).orElse(null);
     }
 
     @Override
