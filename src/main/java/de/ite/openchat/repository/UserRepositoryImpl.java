@@ -8,8 +8,10 @@ import java.util.List;
 @Component
 public class UserRepositoryImpl implements UserRepository {
     final List<UserDbo> userList;
+    private final IdGenerator idGenerator;
 
-    public UserRepositoryImpl() {
+    public UserRepositoryImpl(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
         this.userList = new ArrayList<>();
     }
 
