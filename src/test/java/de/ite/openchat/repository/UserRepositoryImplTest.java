@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -43,12 +45,14 @@ class UserRepositoryImplTest {
     @Test
     void should_find_an_user_by_id() {
         sut.userList.add(user);
-        assertThat(sut.findById(ID)).isEqualTo(user);
+        final Optional<UserDbo> foundUser = sut.findById(ID);
+        assertThat(foundUser).isPresent();
+        assertThat(foundUser.get()).isEqualTo(user);
     }
 
     @Test
     void should_NOT_find_an_user_by_id() {
-        assertThat(sut.findById(ID)).isNull();
+        assertThat(sut.findById(ID)).isNotPresent();
     }
 
     @Test

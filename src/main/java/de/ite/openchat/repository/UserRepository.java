@@ -1,7 +1,9 @@
 package de.ite.openchat.repository;
 
+import java.util.Optional;
+
 public interface UserRepository {
-    UserDbo findById(String userId);
+    Optional<UserDbo> findById(String userId);
 
     String save(UserDbo user);
 

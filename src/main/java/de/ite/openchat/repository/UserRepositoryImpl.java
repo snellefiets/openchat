@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
@@ -16,8 +17,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserDbo findById(String userId) {
-        return userList.stream().findFirst().filter(u -> userId.equals(u.getId())).orElse(null);
+    public Optional<UserDbo> findById(String userId) {
+        return userList.stream().findFirst().filter(u -> userId.equals(u.getId()));
     }
 
     @Override

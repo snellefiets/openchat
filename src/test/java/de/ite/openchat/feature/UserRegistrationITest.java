@@ -16,6 +16,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -52,9 +54,10 @@ public class UserRegistrationITest {
 
         assertThat(response).isEqualTo(RegisterResponse.builder().userId(userId).message("").build());
 
-        final UserDbo userDbo = userRepository.findById(userId);
+        final Optional<UserDbo> userDbo = userRepository.findById(userId);
 
-        assertThat(userDbo).isEqualTo(UserDbo.builder()
+        assertThat(userDbo).isPresent();
+        assertThat(userDbo.get()).isEqualTo(UserDbo.builder()
                 .id(userId)
                 .name(USER_NAME)
                 .password(USER_PASSWORD)
