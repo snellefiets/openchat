@@ -22,7 +22,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String save(UserDbo user) {
-        throw new UnsupportedOperationException();
+        user.setId(idGenerator.nextId());
+        userList.add(user);
+        return user.getId();
     }
 
     @Override
