@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Builder
+@Getter
 @EqualsAndHashCode
 public class UserDbo {
     private final String id;

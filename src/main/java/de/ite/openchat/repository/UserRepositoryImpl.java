@@ -25,6 +25,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean existsByName(String name) {
-        throw new UnsupportedOperationException();
+        return userList.stream().anyMatch(u -> name.equals(u.getName()));
     }
 }
