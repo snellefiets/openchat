@@ -15,13 +15,25 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    void should_find_a_user_existence() {
+    void should_find_an_user_existence() {
         sut.userList.add(UserDbo.builder().name("name").password("password").about("about").build());
         assertThat(sut.existsByName("name")).isTrue();
     }
 
     @Test
-    void should_NOT_find_a_user_existence() {
+    void should_NOT_find_an_user_existence() {
         assertThat(sut.existsByName("user")).isFalse();
+    }
+
+    @Test
+    void should_find_an_user_by_id() {
+        final UserDbo user = UserDbo.builder().id("id").name("name").password("password").about("about").build();
+        sut.userList.add(user);
+        assertThat(sut.findById("id")).isEqualTo(user);
+    }
+
+    @Test
+    void should_NOT_find_an_user_by_id() {
+        assertThat(sut.findById("id")).isNull();
     }
 }
